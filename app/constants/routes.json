@@ -1,0 +1,6 @@
+{
+  "LOGIN": "/",
+  "EDIT": "/edit",
+  "VIEW": "/view",
+  "HOME": "/home"
+}
