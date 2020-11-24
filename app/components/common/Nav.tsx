@@ -51,11 +51,8 @@ export const Nav: React.FC = (props) => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
   return (
     <>
       <CssBaseline />
@@ -79,7 +76,6 @@ export const Nav: React.FC = (props) => {
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
-            container={container}
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={mobileOpen}

@@ -7,7 +7,6 @@ import {
   makeStyles,
   useTheme,
 } from '@material-ui/core';
-import MailIcon from '@material-ui/icons/Mail';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -28,30 +27,33 @@ export const SideBar: React.FC = () => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem button key="View">
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Link to={routes.VIEW} className={classes.link}>
+        <Link to={routes.VIEW} className={classes.link}>
+          <ListItem button key="View">
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+
             <ListItemText primary="View" />
-          </Link>
-        </ListItem>
-        <ListItem button key="Edit">
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Link to={routes.EDIT} className={classes.link}>
+          </ListItem>
+        </Link>
+        <Link to={routes.EDIT} className={classes.link}>
+          <ListItem button key="Edit">
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+
             <ListItemText primary="Edit" />
-          </Link>
-        </ListItem>
-        <ListItem button key="About">
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Link to={routes.ABOUT} className={classes.link}>
+          </ListItem>
+        </Link>
+        <Link to={routes.ABOUT} className={classes.link}>
+          <ListItem button key="About">
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+
             <ListItemText primary="About" />
-          </Link>
-        </ListItem>
+          </ListItem>
+        </Link>
       </List>
       <Divider />
     </div>
