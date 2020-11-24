@@ -1,6 +1,7 @@
 {
   "LOGIN": "/",
-  "EDIT": "/edit",
-  "VIEW": "/view",
-  "HOME": "/home"
+  "HOME": "/home",
+  "EDIT": "/home/edit",
+  "VIEW": "/home/view",
+  "ABOUT": "/home/about"
 }
