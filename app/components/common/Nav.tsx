@@ -2,15 +2,16 @@ import {
   makeStyles,
   Hidden,
   Drawer,
-  useTheme,
   AppBar,
   CssBaseline,
   IconButton,
   Toolbar,
   Typography,
+  useTheme,
 } from '@material-ui/core';
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useLocation } from 'react-router';
 import { SideBar } from './SideBar';
 
 const drawerWidth = 240;
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Nav: React.FC = (props) => {
+export const Nav: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -53,6 +54,23 @@ export const Nav: React.FC = (props) => {
   };
   const classes = useStyles();
   const theme = useTheme();
+  const location = useLocation().pathname;
+
+  const getTitle = (path: string): string => {
+    switch (path) {
+      case '/home/view':
+        return 'View';
+      case '/home/edit':
+        return 'Edit';
+      case '/home/about':
+        return 'About';
+      default:
+        return 'Electron Crud';
+    }
+  };
+
+  const pageTitle = getTitle(location);
+
   return (
     <>
       <CssBaseline />
@@ -68,7 +86,7 @@ export const Nav: React.FC = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            {pageTitle}
           </Typography>
         </Toolbar>
       </AppBar>

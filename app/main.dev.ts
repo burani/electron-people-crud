@@ -11,12 +11,11 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-
-require('./database/init_mongodb');
+import './server/server';
 
 export default class AppUpdater {
   constructor() {
@@ -137,8 +136,4 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
-});
-
-ipcMain.on('get-people', (event, arg) => {
-  console.log('get people event fired');
 });
