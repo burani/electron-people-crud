@@ -8,6 +8,7 @@ import {
   Toolbar,
   Typography,
   useTheme,
+  Button,
 } from '@material-ui/core';
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
+    flexGrow: 1,
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
@@ -52,16 +54,25 @@ export const Nav: React.FC = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleDrawerClose = () => {
+    setMobileOpen(false);
+  };
+
   const classes = useStyles();
   const theme = useTheme();
   const location = useLocation().pathname;
 
   const getTitle = (path: string): string => {
+    const lastNumber = path.split('/')[3];
+
     switch (path) {
       case '/home/view':
         return 'View';
       case '/home/edit':
-        return 'Edit';
+        return 'Edit - Add a new person';
+      case `/home/edit/${lastNumber}`:
+        return 'Edit - Update person';
       case '/home/about':
         return 'About';
       default:
@@ -105,7 +116,7 @@ export const Nav: React.FC = () => {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            <SideBar />
+            <SideBar handleClose={handleDrawerClose} />
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">

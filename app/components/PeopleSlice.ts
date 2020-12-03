@@ -1,26 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AppThunk, RootState } from '../store';
+import { peopleAPI } from '../api';
 
 const peopleSlice = createSlice({
   name: 'people',
   initialState: {
-    people: [
-      {
-        id: 1,
-        name: 'John marston',
-        createdAt: 'June 2010',
-      },
-      {
-        id: 2,
-        name: 'Bill marston',
-        createdAt: 'June 2010',
-      },
-      {
-        id: 3,
-        name: 'Arthur morgan',
-        createdAt: 'June 2010',
-      },
-    ],
+    people: [],
     isLoaded: false,
     page: 0,
     totalPages: 1,
@@ -59,4 +43,10 @@ export const {
 
 export default peopleSlice.reducer;
 
-export const selectCount = (state: RootState) => state.counter.value;
+// thunks
+export const fetchPeople = (page, pageSize) => async (dispatch) => {
+  const res = await peopleAPI.getPeople(page, pageSize);
+  dispatch(setPeople(res.data));
+};
+
+// export const selectCount = (state: RootState) => state.counter.value;

@@ -5,9 +5,10 @@ import {
   ListItemIcon,
   ListItemText,
   makeStyles,
-  useTheme,
 } from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import InfoIcon from '@material-ui/icons/Info';
+import EditIcon from '@material-ui/icons/Edit';
+import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../../constants/routes.json';
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SideBar: React.FC = () => {
+export const SideBar: React.FC = ({ handleClose }) => {
   const classes = useStyles();
 
   return (
@@ -28,29 +29,26 @@ export const SideBar: React.FC = () => {
       <Divider />
       <List>
         <Link to={routes.VIEW} className={classes.link}>
-          <ListItem button key="View">
+          <ListItem button key="View" onClick={handleClose}>
             <ListItemIcon>
-              <InboxIcon />
+              <ViewHeadlineIcon />
             </ListItemIcon>
-
             <ListItemText primary="View" />
           </ListItem>
         </Link>
         <Link to={routes.EDIT} className={classes.link}>
-          <ListItem button key="Edit">
+          <ListItem button key="Edit" onClick={handleClose}>
             <ListItemIcon>
-              <InboxIcon />
+              <EditIcon />
             </ListItemIcon>
-
             <ListItemText primary="Edit" />
           </ListItem>
         </Link>
         <Link to={routes.ABOUT} className={classes.link}>
-          <ListItem button key="About">
+          <ListItem button key="About" onClick={handleClose}>
             <ListItemIcon>
-              <InboxIcon />
+              <InfoIcon />
             </ListItemIcon>
-
             <ListItemText primary="About" />
           </ListItem>
         </Link>

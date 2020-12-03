@@ -18,12 +18,8 @@ export default function Home() {
   return (
     <div className={classes.root}>
       <Nav />
-      {/* 
-      <Link to={routes.EDIT}>Edit</Link>
-      <Link to={routes.ABOUT}>About</Link>
-      <Link to={routes.LOGIN}>Logout</Link> */}
       <Route path={routes.VIEW} exact component={View} />
-      <Route path={routes.EDIT} exact component={Edit} />
+      <Route path={`${routes.EDIT}/:id?`} component={Edit} />
       <Route path={routes.ABOUT} exact component={About} />
       <Redirect from="/home" to={routes.VIEW} exact />
     </div>

@@ -7,6 +7,6 @@ import peopleReducer from './components/PeopleSlice';
 export default function createRootReducer(history: History) {
   return combineReducers({
     router: connectRouter(history),
-    counter: peopleReducer,
+    people: peopleReducer,
   });
 }
