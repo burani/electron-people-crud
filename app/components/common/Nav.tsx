@@ -14,8 +14,10 @@ import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useLocation } from 'react-router';
 import { SideBar } from './SideBar';
+const { shell, remote } = require('electron');
 
 const drawerWidth = 240;
+const appPath = remote.app.getAppPath();
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -99,6 +101,13 @@ export const Nav: React.FC = () => {
           <Typography variant="h6" noWrap>
             {pageTitle}
           </Typography>
+          <Button
+            onClick={() => {
+              shell.openItem(`${appPath}/db.json`);
+            }}
+          >
+            Open file
+          </Button>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
