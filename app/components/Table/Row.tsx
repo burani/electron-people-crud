@@ -6,16 +6,12 @@ import {
   ListItem,
   ListItemText,
   makeStyles,
-  Table,
-  TableBody,
   TableCell,
-  TableHead,
   TableRow,
   Typography,
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-
 import React from 'react';
 
 const useRowStyles = makeStyles({

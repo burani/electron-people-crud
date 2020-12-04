@@ -1,17 +1,17 @@
 import {
-  makeStyles,
-  Hidden,
-  Drawer,
   AppBar,
+  Button,
   CssBaseline,
+  Drawer,
+  Hidden,
   IconButton,
+  makeStyles,
   Toolbar,
   Typography,
   useTheme,
-  Button,
 } from '@material-ui/core';
-import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
+import React from 'react';
 import { useLocation } from 'react-router';
 import { SideBar } from './SideBar';
 const { shell, remote } = require('electron');
@@ -38,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
+  },
+  fileButton: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    justifySelf: 'end',
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -102,6 +107,7 @@ export const Nav: React.FC = () => {
             {pageTitle}
           </Typography>
           <Button
+            className={classes.fileButton}
             onClick={() => {
               shell.openItem(`${appPath}/db.json`);
             }}

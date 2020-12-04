@@ -6,8 +6,8 @@ import {
   ListItemText,
   makeStyles,
 } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
 import EditIcon from '@material-ui/icons/Edit';
+import InfoIcon from '@material-ui/icons/Info';
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 import React from 'react';
 import { Link } from 'react-router-dom';

@@ -7,17 +7,16 @@ import {
   makeStyles,
   Snackbar,
   TextField,
-  Typography,
 } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import { FieldArray, Form, Formik, getIn } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
-import * as Yup from 'yup';
-import { generate } from 'shortid';
 import { useHistory } from 'react-router';
-import MuiAlert from '@material-ui/lab/Alert';
+import { Link } from 'react-router-dom';
+import { generate } from 'shortid';
+import * as Yup from 'yup';
 import { peopleAPI } from '../api';
 import routes from '../constants/routes.json';
-import { Link } from 'react-router-dom';
 import { CustomToolbar } from './common/CustomToolbar';
 
 function Alert(props) {
