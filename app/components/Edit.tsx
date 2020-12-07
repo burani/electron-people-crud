@@ -45,15 +45,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+Yup.addMethod(Yup.object, 'uniqueProperty', function (propertyName, message) {
+  return this.test('unique', message, function (value) {
+    if (!value || !value[propertyName]) {
+      return true;
+    }
+
+    if (
+      this.parent
+        .filter((v) => v !== value)
+        .some((v) => v[propertyName] === value[propertyName])
+    ) {
+      throw this.createError({
+        path: `${this.path}.${propertyName}`,
+      });
+    }
+
+    return true;
+  });
+});
+
 const validationSchema = Yup.object().shape({
   additional: Yup.array().of(
-    Yup.object().shape({
-      key: Yup.string().min(2).required(),
-      value: Yup.string().max(20),
-    })
+    Yup.object()
+      .shape({
+        key: Yup.string().min(2).required(),
+        value: Yup.string().max(20),
+      })
+      .uniqueProperty('key', '].duplicate key')
   ),
   name: Yup.string().required().max(40),
 });
+
+const simplifyErrorString = (errorString) => {
+  const myReg = /].(.*)/;
+  if (errorString) {
+    return myReg.exec(errorString)[1];
+  }
+  return errorString;
+};
 
 export const Edit: React.FC = ({ match }) => {
   const classes = useStyles();
@@ -178,8 +208,12 @@ export const Edit: React.FC = ({ match }) => {
                                     value={pair.key}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    error={getIn(errors, key)}
-                                    helperText={getIn(errors, key)}
+                                    error={simplifyErrorString(
+                                      getIn(errors, key)
+                                    )}
+                                    helperText={simplifyErrorString(
+                                      getIn(errors, key)
+                                    )}
                                   />
                                   <TextField
                                     className={classes.input}
@@ -189,8 +223,12 @@ export const Edit: React.FC = ({ match }) => {
                                     value={pair.value}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    error={getIn(errors, value)}
-                                    helperText={getIn(errors, value)}
+                                    error={simplifyErrorString(
+                                      getIn(errors, value)
+                                    )}
+                                    helperText={simplifyErrorString(
+                                      getIn(errors, value)
+                                    )}
                                   />
                                 </div>
                               );
