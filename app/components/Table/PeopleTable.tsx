@@ -43,9 +43,12 @@ export const PeopleTable: React.FC = () => {
   const pageSize = useSelector((state) => {
     return state.people.pageSize;
   });
+  const totalPeople = useSelector((state) => {
+    return state.people.totalPeople;
+  });
 
-  const handleChangePage = (e) => {
-    dispatch(setPage(e.target.value));
+  const handleChangePage = (e, newPage) => {
+    dispatch(setPage(newPage));
   };
 
   const handleRowClick = (e, id) => {
@@ -65,8 +68,8 @@ export const PeopleTable: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchPeople(page, pageSize));
-  }, []);
+    dispatch(fetchPeople(page + 1, pageSize));
+  }, [page]);
 
   return (
     <>
@@ -98,7 +101,7 @@ export const PeopleTable: React.FC = () => {
           <TablePagination
             rowsPerPageOptions={[]}
             component="div"
-            count={people.length}
+            count={totalPeople}
             rowsPerPage={pageSize}
             page={page}
             onChangePage={handleChangePage}

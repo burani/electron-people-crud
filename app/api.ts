@@ -21,3 +21,5 @@ export const peopleAPI = {
     return instance.delete(`/people/${id}`);
   },
 };
+
+// totalPeople: await instance.get('/people').length

@@ -9,12 +9,16 @@ const peopleSlice = createSlice({
     page: 0,
     totalPages: 1,
     pageSize: 25,
+    totalPeople: 0,
     selectedPerson: null,
   },
   reducers: {
     setPeople: (state, action) => {
-      state.people = action.payload;
-      state.totalPages = Math.floor(action.payload.length / state.pageSize);
+      state.people = action.payload.paginatedPeople;
+      state.totalPages = Math.floor(
+        action.payload.totalPeople / state.pageSize
+      );
+      state.totalPeople = action.payload.totalPeople;
       state.isLoaded = true;
     },
     setPage: (state, action) => {
@@ -30,6 +34,9 @@ const peopleSlice = createSlice({
     setSelectedPerson: (state, action) => {
       state.selectedPerson = action.payload;
     },
+    setTotalPeople: (state, action) => {
+      state.totalPeople = action.payload;
+    },
   },
 });
 
@@ -39,6 +46,7 @@ export const {
   setPageSize,
   setLoaded,
   setSelectedPerson,
+  setTotalPeople,
 } = peopleSlice.actions;
 
 export default peopleSlice.reducer;
@@ -46,7 +54,14 @@ export default peopleSlice.reducer;
 // thunks
 export const fetchPeople = (page, pageSize) => async (dispatch) => {
   const res = await peopleAPI.getPeople(page, pageSize);
-  dispatch(setPeople(res.data));
+  // debugger;
+  console.log(res.data);
+  dispatch(
+    setPeople({
+      paginatedPeople: res.data,
+      totalPeople: res.headers['x-total-count'],
+    })
+  );
 };
 
 // export const selectCount = (state: RootState) => state.counter.value;

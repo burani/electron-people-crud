@@ -40,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   input: {
     marginTop: '30px',
+    marginRight: '15px',
+    width: '160px',
   },
 }));
 
@@ -204,6 +206,7 @@ export const Edit: React.FC = ({ match }) => {
                       type="submit"
                       variant="contained"
                       disabled={!isValid}
+                      style={{ marginRight: '15px' }}
                     >
                       {isUpdate ? 'Update' : 'Add a new person'}
                     </Button>
