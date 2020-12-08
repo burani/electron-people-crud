@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import {
   AppBar,
   Button,
@@ -11,12 +12,15 @@ import {
   useTheme,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useLocation } from 'react-router';
 import { SideBar } from './SideBar';
 const { shell, remote } = require('electron');
 
-const drawerWidth = 240;
+const drawerWidth = 241;
+const minDrawerWidth = 240;
+const maxDrawerWidth = 1000;
+
 const appPath = remote.app.getAppPath();
 
 const useStyles = makeStyles((theme) => ({
@@ -53,10 +57,43 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  dragger: {
+    width: '5px',
+    cursor: 'ew-resize',
+    padding: '4px 0 0',
+    borderTop: '1px solid #ddd',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 100,
+    backgroundColor: '#f4f7f9',
+  },
 }));
 
 export const Nav: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const [resizedWidth, setResizedWidth] = React.useState(drawerWidth);
+
+  const handleMouseDown = (e) => {
+    // console.log('in mouse down');
+    document.addEventListener('mouseup', handleMouseUp, true);
+    document.addEventListener('mousemove', handleMouseMove, true);
+  };
+
+  const handleMouseUp = () => {
+    document.removeEventListener('mouseup', handleMouseUp, true);
+    document.removeEventListener('mousemove', handleMouseMove, true);
+  };
+
+  const handleMouseMove = useCallback((e) => {
+    const newWidth = e.clientX - document.body.offsetLeft;
+    // console.log('newWidth: ' + newWidth);
+    if (newWidth > minDrawerWidth && newWidth < maxDrawerWidth) {
+      setResizedWidth(newWidth);
+    }
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -136,12 +173,17 @@ export const Nav: React.FC = () => {
         </Hidden>
         <Hidden xsDown implementation="css">
           <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
+            // classes={{
+            //   paper: classes.drawerPaper,
+            // }}
             variant="permanent"
             open
+            PaperProps={{ style: { width: resizedWidth } }}
           >
+            <div
+              onMouseDown={(e) => handleMouseDown(e)}
+              className={classes.dragger}
+            />
             <SideBar />
           </Drawer>
         </Hidden>
